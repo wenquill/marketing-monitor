@@ -1,15 +1,8 @@
 import { useState, FormEvent } from 'react';
-import { App } from '../types';
-
-export interface AppFormValues {
-  url: string;
-  name?: string;
-  intervalHours?: number;
-  isActive?: boolean;
-}
+import { App, AppFormValues } from '../../types';
+import styles from './AppForm.module.scss';
 
 interface AppFormProps {
-  /** When provided, the form is in edit mode */
   existing?: App;
   onSubmit: (values: AppFormValues) => Promise<void>;
   onCancel: () => void;
@@ -117,7 +110,7 @@ export default function AppForm({ existing, onSubmit, onCancel }: AppFormProps) 
         </div>
       )}
 
-      <div className="modal-footer" style={{ padding: 0, marginTop: 8 }}>
+      <div className={styles.formActions}>
         <button type="button" className="btn btn-secondary" onClick={onCancel} disabled={submitting}>
           Cancel
         </button>

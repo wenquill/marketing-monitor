@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { App } from '../types.tsx';
-import { useApps } from '../hooks/useApps.ts';
-import Modal from '../components/Modal.tsx';
-import AppForm, { AppFormValues } from '../components/AppForm.tsx';
-import AppCard from '../components/Card/AppCard.tsx';
-import Spinner from '../components/Spinner.tsx';
-import NoCards from '../components/Card/NoCards.tsx';
+import { App, AppFormValues } from '../../types.ts';
+import { useApps } from '../../hooks/useApps.ts';
+import Modal from '../../components/Modal/Modal.tsx';
+import AppForm from '../../components/AppForm/AppForm.tsx';
+import AppCard from '../../components/Card/AppCard.tsx';
+import Spinner from '../../components/Spinner/Spinner.tsx';
+import NoCards from '../../components/Card/NoCards.tsx';
+import styles from './AppsPage.module.scss';
 
 export default function AppsPage() {
   const { apps, loading, error, createApp, updateApp, deleteApp } = useApps();
@@ -62,7 +63,7 @@ export default function AppsPage() {
       ) : apps.length === 0 ? (
         <NoCards setShowAdd={setShowAdd} />
       ) : (
-        <div className="apps-grid">
+        <div className={styles.grid}>
           {apps.map((app) => (
             <AppCard
               key={app.id}

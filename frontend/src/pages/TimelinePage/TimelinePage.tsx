@@ -1,7 +1,8 @@
 import { useParams, Link } from 'react-router-dom';
-import { useTimeline } from '../hooks/useTimeline.ts';
-import ScreenshotEntry from '../components/ScreenshotEntry.tsx';
-import Spinner from '../components/Spinner.tsx';
+import { useTimeline } from '../../hooks/useTimeline.ts';
+import ScreenshotEntry from '../../components/ScreenshotEntry/ScreenshotEntry.tsx';
+import Spinner from '../../components/Spinner/Spinner.tsx';
+import styles from './TimelinePage.module.scss';
 
 export default function TimelinePage() {
   const { id } = useParams<{ id: string }>();
@@ -37,19 +38,19 @@ export default function TimelinePage() {
 
   return (
     <>
-      <div className="timeline-header">
-        <div className="timeline-app-info">
+      <div className={styles.header}>
+        <div className={styles.appInfo}>
           <Link to="/apps" className="btn btn-ghost btn-sm" style={{ marginBottom: 8, paddingLeft: 0 }}>
             ← Back to Apps
           </Link>
           <h1 className="page-title">{app.name}</h1>
-          <div className="timeline-app-url">
+          <div className={styles.appUrl}>
             <a href={app.url} target="_blank" rel="noopener noreferrer">
               {app.url}
             </a>
           </div>
         </div>
-        <div className="timeline-actions">
+        <div className={styles.actions}>
           <button
             className="btn btn-primary"
             onClick={triggerScreenshot}
@@ -84,14 +85,14 @@ export default function TimelinePage() {
             first
           </p>
 
-          <div className="timeline-list">
+          <div className={styles.list}>
             {screenshots.map((shot) => (
               <ScreenshotEntry key={shot.id} screenshot={shot} />
             ))}
           </div>
 
           {screenshots.length < total && (
-            <div className="load-more">
+            <div className={styles.loadMore}>
               <button
                 className="btn btn-secondary"
                 onClick={loadMore}

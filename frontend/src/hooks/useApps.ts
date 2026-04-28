@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { App } from '../types.tsx';
+import { App, AppFormValues } from '../types.tsx';
 import { appsApi } from '../api/client.ts';
-import { AppFormValues } from '../components/AppForm.tsx';
 
 interface UseAppsReturn {
   apps: App[];

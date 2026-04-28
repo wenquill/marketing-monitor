@@ -1,5 +1,3 @@
-// ── Shared types (mirrors backend API shapes) ─────────────────────────────
-
 export interface Screenshot {
   id: number;
   appId: number;
@@ -34,6 +32,13 @@ export interface CreateAppDto {
 
 export interface UpdateAppDto {
   url?: string;
+  name?: string;
+  intervalHours?: number;
+  isActive?: boolean;
+}
+
+export interface AppFormValues {
+  url: string;
   name?: string;
   intervalHours?: number;
   isActive?: boolean;
