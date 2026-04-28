@@ -2,8 +2,7 @@ import cron from 'node-cron';
 import { getDb } from '../db/database.js';
 import { takeScreenshot } from './screenshotService.js';
 import { DbApp } from '../types.js';
-
-function row<T>(v: unknown): T { return v as T; }
+import { row } from '../utils/db.js';
 
 const CHECK_INTERVAL_MINUTES = Math.max(
   1,

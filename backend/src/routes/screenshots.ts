@@ -1,22 +1,11 @@
 import { Router, Request, Response } from 'express';
 import { getDb } from '../db/database.js';
-import { DbApp, DbScreenshot, ScreenshotResponse } from '../types.js';
+import { DbApp, DbScreenshot } from '../types.js';
 import { takeScreenshot } from '../services/screenshotService.js';
-
-function row<T>(v: unknown): T { return v as T; }
+import { row } from '../utils/db.js';
+import { toScreenshotResponse } from '../utils/mappers.js';
 
 const router = Router({ mergeParams: true });
-
-function toScreenshotResponse(s: DbScreenshot): ScreenshotResponse {
-  return {
-    id: s.id,
-    appId: s.app_id,
-    imageUrl: s.file_name ? `/screenshots/${s.file_name}` : '',
-    takenAt: s.taken_at,
-    status: s.status as 'success' | 'failed',
-    errorMessage: s.error_message,
-  };
-}
 
 // GET /api/apps/:appId/screenshots?limit=20&offset=0
 router.get('/', (req: Request, res: Response) => {
@@ -51,7 +40,7 @@ router.get('/', (req: Request, res: Response) => {
   res.json({ total, screenshots: screenshots.map(toScreenshotResponse) });
 });
 
-// POST /api/apps/:appId/screenshots  — manually trigger a screenshot
+// POST /api/apps/:appId/screenshots — manually trigger a screenshot
 router.post('/', async (req: Request, res: Response) => {
   const db = getDb();
   const app = row<DbApp | undefined>(db.prepare('SELECT * FROM apps WHERE id = ?').get(req.params.appId));
@@ -61,8 +50,6 @@ router.post('/', async (req: Request, res: Response) => {
     return;
   }
 
-  // Respond immediately, then take the screenshot (fire-and-forget style but we
-  // await so the client gets a result back).
   const result = await takeScreenshot(app);
   res.status(result.status === 'success' ? 201 : 422).json(result);
 });
