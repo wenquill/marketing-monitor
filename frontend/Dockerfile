@@ -1,0 +1,17 @@
+FROM node:22-bookworm-slim AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY tsconfig.json tsconfig.node.json vite.config.ts index.html ./
+COPY src ./src
+
+RUN npm run build
+
+FROM nginx:stable-alpine AS production
+
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+EXPOSE 80

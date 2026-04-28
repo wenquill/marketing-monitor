@@ -86,32 +86,55 @@ The frontend will be available at **http://localhost:5173**. API requests are pr
 home-task-rounds/
 ├── backend/
 │   ├── src/
-│   │   ├── index.ts                  # Express server & graceful shutdown
-│   │   ├── types.ts                  # Shared DB + API types
+│   │   ├── index.ts                      # Express server & graceful shutdown
+│   │   ├── types.ts                      # Shared DB + API types
 │   │   ├── db/
-│   │   │   └── database.ts           # SQLite initialisation & migrations
+│   │   │   └── database.ts               # SQLite initialisation & migrations
 │   │   ├── routes/
-│   │   │   ├── apps.ts               # CRUD for tracked apps
-│   │   │   └── screenshots.ts        # Screenshot listing & manual trigger
-│   │   └── services/
-│   │       ├── screenshotService.ts  # Puppeteer screenshot logic
-│   │       └── schedulerService.ts   # node-cron periodic checker
-│   ├── data/                         # SQLite DB (created at runtime)
-│   ├── screenshots/                  # Captured images (created at runtime)
+│   │   │   ├── apps.ts                   # CRUD for tracked apps
+│   │   │   └── screenshots.ts            # Screenshot listing & manual trigger
+│   │   ├── services/
+│   │   │   ├── appsService.ts            # App business logic
+│   │   │   ├── screenshotService.ts      # Puppeteer screenshot logic
+│   │   │   └── schedulerService.ts       # Periodic screenshot checker
+│   │   └── utils/
+│   │       ├── db.ts                     # Database helper utilities
+│   │       ├── mappers.ts                # DB row → API type mappers
+│   │       └── validators.ts             # Input validation helpers
+│   ├── data/                             # SQLite DB (created at runtime)
+│   ├── screenshots/                      # Captured images, one sub-dir per app
+│   ├── tsconfig.json
 │   └── package.json
 └── frontend/
     ├── src/
-    │   ├── App.tsx                   # Router & navbar
-    │   ├── index.css                 # Global styles
-    │   ├── types.ts                  # Shared frontend types
+    │   ├── App.tsx                       # Router & layout
+    │   ├── main.tsx                      # React entry point
+    │   ├── types.ts                      # Shared frontend types
     │   ├── api/
-    │   │   └── client.ts             # Typed fetch wrappers
+    │   │   ├── apps.ts                   # App API calls
+    │   │   ├── client.ts                 # Base fetch client
+    │   │   └── screenshots.ts            # Screenshot API calls
+    │   ├── components/
+    │   │   ├── AppForm/                  # Add / edit app form
+    │   │   ├── Card/                     # App card & empty-state card
+    │   │   ├── Footer/
+    │   │   ├── Header/
+    │   │   ├── Modal/                    # Reusable modal dialog
+    │   │   ├── ScreenshotEntry/          # Single timeline entry
+    │   │   └── Spinner/
+    │   ├── hooks/
+    │   │   ├── useApps.ts                # Apps data & mutations
+    │   │   └── useTimeline.ts            # Timeline data & mutations
     │   ├── pages/
-    │   │   ├── AppsPage.tsx          # Manage tracked apps
-    │   │   └── TimelinePage.tsx      # Per-app screenshot timeline
-    │   └── components/
-    │       ├── AppForm.tsx           # Add / edit form
-    │       └── Modal.tsx             # Reusable modal dialog
+    │   │   ├── AppsPage/                 # Manage tracked apps
+    │   │   └── TimelinePage/             # Per-app screenshot timeline
+    │   ├── styles/
+    │   │   ├── _variables.scss           # SCSS design tokens
+    │   │   └── global.scss               # Global styles
+    │   └── utils/
+    │       └── format.ts                 # Date / string formatters
+    ├── tsconfig.json
+    ├── vite.config.ts
     └── package.json
 ```
 
@@ -124,5 +147,3 @@ cd backend && npm run build   # outputs to backend/dist/
 # Build frontend
 cd frontend && npm run build  # outputs to frontend/dist/
 ```
-
-To serve the frontend statically you can configure the backend to serve `frontend/dist/` or deploy to any static host (Vercel, Netlify, S3, etc.).
