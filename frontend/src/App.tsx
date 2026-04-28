@@ -1,18 +1,13 @@
-import { BrowserRouter, Routes, Route, NavLink, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AppsPage from './pages/AppsPage';
 import TimelinePage from './pages/TimelinePage.tsx';
+import Header from './components/Header.tsx';
+import Footer from './components/Footer.tsx';
 
 export default function App() {
   return (
     <BrowserRouter>
-      <header className="navbar">
-        <div className="navbar-brand">Marketing Monitor</div>
-        <nav className="navbar-nav">
-          <NavLink to="/apps" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
-            Tracked Apps
-          </NavLink>
-        </nav>
-      </header>
+      <Header />
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Navigate to="/apps" replace />} />
@@ -20,6 +15,7 @@ export default function App() {
           <Route path="/apps/:id/timeline" element={<TimelinePage />} />
         </Routes>
       </main>
+      <Footer />
     </BrowserRouter>
   );
 }
