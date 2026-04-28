@@ -26,15 +26,13 @@ router.get('/', (req: Request, res: Response) => {
         `SELECT * FROM screenshots
          WHERE app_id = ?
          ORDER BY taken_at DESC
-         LIMIT ? OFFSET ?`,
+         LIMIT ? OFFSET ?`
       )
-      .all(req.params.appId, limit, offset),
+      .all(req.params.appId, limit, offset)
   );
 
   const total = row<{ count: number }>(
-    db
-      .prepare('SELECT COUNT(*) as count FROM screenshots WHERE app_id = ?')
-      .get(req.params.appId),
+    db.prepare('SELECT COUNT(*) as count FROM screenshots WHERE app_id = ?').get(req.params.appId)
   ).count;
 
   res.json({ total, screenshots: screenshots.map(toScreenshotResponse) });
@@ -43,7 +41,9 @@ router.get('/', (req: Request, res: Response) => {
 // POST /api/apps/:appId/screenshots — manually trigger a screenshot
 router.post('/', async (req: Request, res: Response) => {
   const db = getDb();
-  const app = row<DbApp | undefined>(db.prepare('SELECT * FROM apps WHERE id = ?').get(req.params.appId));
+  const app = row<DbApp | undefined>(
+    db.prepare('SELECT * FROM apps WHERE id = ?').get(req.params.appId)
+  );
 
   if (!app) {
     res.status(404).json({ message: 'App not found' });

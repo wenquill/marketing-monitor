@@ -55,7 +55,7 @@ export async function takeScreenshot(app: DbApp): Promise<ScreenshotResponse> {
       await page.setViewport({ width: 1280, height: 900 });
       await page.setUserAgent(
         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
-          '(KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+          '(KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36'
       );
       await page.setExtraHTTPHeaders({ 'Accept-Language': 'en-US,en;q=0.9' });
 
@@ -72,7 +72,7 @@ export async function takeScreenshot(app: DbApp): Promise<ScreenshotResponse> {
     const result = db
       .prepare(
         `INSERT INTO screenshots (app_id, file_name, taken_at, status)
-         VALUES (?, ?, ?, 'success')`,
+         VALUES (?, ?, ?, 'success')`
       )
       .run(app.id, relativePath, takenAt);
 
@@ -91,7 +91,7 @@ export async function takeScreenshot(app: DbApp): Promise<ScreenshotResponse> {
     const result = db
       .prepare(
         `INSERT INTO screenshots (app_id, file_name, taken_at, status, error_message)
-         VALUES (?, '', ?, 'failed', ?)`,
+         VALUES (?, '', ?, 'failed', ?)`
       )
       .run(app.id, takenAt, errorMessage);
 

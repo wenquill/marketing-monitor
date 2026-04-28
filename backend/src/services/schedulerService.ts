@@ -6,7 +6,7 @@ import { row } from '../utils/db.js';
 
 const CHECK_INTERVAL_MINUTES = Math.max(
   1,
-  parseInt(process.env.CHECK_INTERVAL_MINUTES ?? '30', 10),
+  parseInt(process.env.CHECK_INTERVAL_MINUTES ?? '30', 10)
 );
 
 export function startScheduler(): void {
@@ -42,9 +42,9 @@ async function checkAndTakeScreenshots(): Promise<void> {
              WHERE s.app_id = a.id AND s.status = 'success'
            ) < strftime('%Y-%m-%dT%H:%M:%SZ',
                datetime('now', '-' || a.interval_hours || ' hours'))
-         )`,
+         )`
       )
-      .all(),
+      .all()
   );
 
   if (apps.length === 0) {

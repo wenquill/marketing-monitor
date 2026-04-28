@@ -65,12 +65,7 @@ export default function AppsPage() {
       ) : (
         <div className={styles.grid}>
           {apps.map((app) => (
-            <AppCard
-              key={app.id}
-              app={app}
-              onEdit={setEditApp}
-              onDelete={setDeleteTarget}
-            />
+            <AppCard key={app.id} app={app} onEdit={setEditApp} onDelete={setDeleteTarget} />
           ))}
         </div>
       )}
@@ -83,11 +78,7 @@ export default function AppsPage() {
 
       {editApp && (
         <Modal title="Edit App" onClose={() => setEditApp(null)}>
-          <AppForm
-            existing={editApp}
-            onSubmit={handleEdit}
-            onCancel={() => setEditApp(null)}
-          />
+          <AppForm existing={editApp} onSubmit={handleEdit} onCancel={() => setEditApp(null)} />
         </Modal>
       )}
 
@@ -111,8 +102,8 @@ export default function AppsPage() {
           }
         >
           <p className="confirm-message">
-            Are you sure you want to delete <strong>{deleteTarget.name}</strong>? All
-            screenshots will be removed from the database.
+            Are you sure you want to delete <strong>{deleteTarget.name}</strong>? All screenshots
+            will be removed from the database.
           </p>
           {deleteError && (
             <div className="alert alert-error" style={{ marginTop: 12 }}>

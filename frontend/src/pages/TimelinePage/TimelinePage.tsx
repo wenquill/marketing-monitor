@@ -40,7 +40,11 @@ export default function TimelinePage() {
     <>
       <div className={styles.header}>
         <div className={styles.appInfo}>
-          <Link to="/apps" className="btn btn-ghost btn-sm" style={{ marginBottom: 8, paddingLeft: 0 }}>
+          <Link
+            to="/apps"
+            className="btn btn-ghost btn-sm"
+            style={{ marginBottom: 8, paddingLeft: 0 }}
+          >
             ← Back to Apps
           </Link>
           <h1 className="page-title">{app.name}</h1>
@@ -51,11 +55,7 @@ export default function TimelinePage() {
           </div>
         </div>
         <div className={styles.actions}>
-          <button
-            className="btn btn-primary"
-            onClick={triggerScreenshot}
-            disabled={triggering}
-          >
+          <button className="btn btn-primary" onClick={triggerScreenshot} disabled={triggering}>
             {triggering ? 'Capturing…' : '📷 Take Screenshot Now'}
           </button>
         </div>
@@ -93,11 +93,7 @@ export default function TimelinePage() {
 
           {screenshots.length < total && (
             <div className={styles.loadMore}>
-              <button
-                className="btn btn-secondary"
-                onClick={loadMore}
-                disabled={loadingMore}
-              >
+              <button className="btn btn-secondary" onClick={loadMore} disabled={loadingMore}>
                 {loadingMore ? 'Loading…' : `Load more (${total - screenshots.length} remaining)`}
               </button>
             </div>

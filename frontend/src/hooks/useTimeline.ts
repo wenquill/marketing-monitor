@@ -34,16 +34,13 @@ export function useTimeline(appId: number): UseTimelineReturn {
       setTotal(page.total);
       setScreenshots((prev) => (replace ? page.screenshots : [...prev, ...page.screenshots]));
     },
-    [appId],
+    [appId]
   );
 
   useEffect(() => {
     async function init() {
       try {
-        const [appData] = await Promise.all([
-          appsApi.getById(appId),
-          fetchScreenshots(0, true),
-        ]);
+        const [appData] = await Promise.all([appsApi.getById(appId), fetchScreenshots(0, true)]);
         setApp(appData);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load data.');

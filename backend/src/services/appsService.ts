@@ -11,7 +11,7 @@ function withLastScreenshot(app: DbApp): AppResponse {
   const last = row<DbScreenshot | undefined>(
     db
       .prepare('SELECT * FROM screenshots WHERE app_id = ? ORDER BY taken_at DESC LIMIT 1')
-      .get(app.id),
+      .get(app.id)
   );
   return toAppResponse(app, last ?? null);
 }
@@ -29,11 +29,16 @@ export function getAppById(id: number | string): AppResponse | null {
   return withLastScreenshot(app);
 }
 
-export async function createApp(dto: CreateAppDto): Promise<{ error: string; status: number } | AppResponse> {
+export async function createApp(
+  dto: CreateAppDto
+): Promise<{ error: string; status: number } | AppResponse> {
   const url = dto.url.trim();
   const packageId = parsePlayUrl(url);
   if (!packageId) {
-    return { status: 400, error: 'url must be a valid Google Play app URL (play.google.com/store/apps/details?id=...)' };
+    return {
+      status: 400,
+      error: 'url must be a valid Google Play app URL (play.google.com/store/apps/details?id=...)',
+    };
   }
 
   const intervalHours =
@@ -56,13 +61,15 @@ export async function createApp(dto: CreateAppDto): Promise<{ error: string; sta
     .prepare('INSERT INTO apps (name, package_id, url, interval_hours) VALUES (?, ?, ?, ?)')
     .run(name, packageId, url, intervalHours);
 
-  const created = row<DbApp>(db.prepare('SELECT * FROM apps WHERE id = ?').get(result.lastInsertRowid));
+  const created = row<DbApp>(
+    db.prepare('SELECT * FROM apps WHERE id = ?').get(result.lastInsertRowid)
+  );
   return toAppResponse(created, null);
 }
 
 export async function updateApp(
   id: number | string,
-  dto: Partial<UpdateAppDto>,
+  dto: Partial<UpdateAppDto>
 ): Promise<{ error: string; status: number } | AppResponse | null> {
   const db = getDb();
   const app = row<DbApp | undefined>(db.prepare('SELECT * FROM apps WHERE id = ?').get(id));
@@ -81,7 +88,9 @@ export async function updateApp(
     if (!packageId) {
       return { status: 400, error: 'url must be a valid Google Play app URL' };
     }
-    const conflict = db.prepare('SELECT id FROM apps WHERE package_id = ? AND id != ?').get(packageId, app.id);
+    const conflict = db
+      .prepare('SELECT id FROM apps WHERE package_id = ? AND id != ?')
+      .get(packageId, app.id);
     if (conflict) {
       return { status: 409, error: `Another app with package ID "${packageId}" already exists` };
     }

@@ -35,10 +35,14 @@ export function useApps(): UseAppsReturn {
 
   const createApp = useCallback(
     async (values: AppFormValues) => {
-      await appsApi.create({ url: values.url, name: values.name, intervalHours: values.intervalHours });
+      await appsApi.create({
+        url: values.url,
+        name: values.name,
+        intervalHours: values.intervalHours,
+      });
       await reload();
     },
-    [reload],
+    [reload]
   );
 
   const updateApp = useCallback(
@@ -46,7 +50,7 @@ export function useApps(): UseAppsReturn {
       await appsApi.update(id, values);
       await reload();
     },
-    [reload],
+    [reload]
   );
 
   const deleteApp = useCallback(
@@ -54,7 +58,7 @@ export function useApps(): UseAppsReturn {
       await appsApi.delete(id);
       await reload();
     },
-    [reload],
+    [reload]
   );
 
   return { apps, loading, error, reload, createApp, updateApp, deleteApp };

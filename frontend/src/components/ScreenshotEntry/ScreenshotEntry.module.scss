@@ -24,8 +24,12 @@
   border-radius: 50%;
   flex-shrink: 0;
 
-  &.success { background: var(--success); }
-  &.failed  { background: var(--danger); }
+  &.success {
+    background: var(--success);
+  }
+  &.failed {
+    background: var(--danger);
+  }
 }
 
 .image {

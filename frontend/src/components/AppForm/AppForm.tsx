@@ -33,7 +33,11 @@ export default function AppForm({ existing, onSubmit, onCancel }: AppFormProps) 
 
     setSubmitting(true);
     try {
-      const values: AppFormValues = { url: url.trim(), name: name.trim() || undefined, intervalHours: hours };
+      const values: AppFormValues = {
+        url: url.trim(),
+        name: name.trim() || undefined,
+        intervalHours: hours,
+      };
       if (existing) values.isActive = isActive;
       await onSubmit(values);
     } catch (err) {
@@ -60,9 +64,7 @@ export default function AppForm({ existing, onSubmit, onCancel }: AppFormProps) 
           onChange={(e) => setUrl(e.target.value)}
           required
         />
-        <span className="form-hint">
-          Must be a valid Google Play app listing URL.
-        </span>
+        <span className="form-hint">Must be a valid Google Play app listing URL.</span>
       </div>
 
       <div className="form-group">
@@ -111,7 +113,12 @@ export default function AppForm({ existing, onSubmit, onCancel }: AppFormProps) 
       )}
 
       <div className={styles.formActions}>
-        <button type="button" className="btn btn-secondary" onClick={onCancel} disabled={submitting}>
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={onCancel}
+          disabled={submitting}
+        >
           Cancel
         </button>
         <button type="submit" className="btn btn-primary" disabled={submitting}>

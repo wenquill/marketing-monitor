@@ -1,27 +1,27 @@
 @use 'variables' as *;
 
 :root {
-  --primary:       #{$primary};
-  --primary-dark:  #{$primary-dark};
+  --primary: #{$primary};
+  --primary-dark: #{$primary-dark};
   --primary-light: #{$primary-light};
-  --danger:        #{$danger};
-  --danger-hover:  #{$danger-hover};
-  --success:       #{$success};
-  --warning:       #{$warning};
-  --gray-50:       #{$gray-50};
-  --gray-100:      #{$gray-100};
-  --gray-200:      #{$gray-200};
-  --gray-300:      #{$gray-300};
-  --gray-500:      #{$gray-500};
-  --gray-600:      #{$gray-600};
-  --gray-700:      #{$gray-700};
-  --gray-800:      #{$gray-800};
-  --gray-900:      #{$gray-900};
-  --shadow-sm:     #{$shadow-sm};
-  --shadow:        #{$shadow};
-  --shadow-md:     #{$shadow-md};
-  --radius:        #{$radius};
-  --radius-sm:     #{$radius-sm};
+  --danger: #{$danger};
+  --danger-hover: #{$danger-hover};
+  --success: #{$success};
+  --warning: #{$warning};
+  --gray-50: #{$gray-50};
+  --gray-100: #{$gray-100};
+  --gray-200: #{$gray-200};
+  --gray-300: #{$gray-300};
+  --gray-500: #{$gray-500};
+  --gray-600: #{$gray-600};
+  --gray-700: #{$gray-700};
+  --gray-800: #{$gray-800};
+  --gray-900: #{$gray-900};
+  --shadow-sm: #{$shadow-sm};
+  --shadow: #{$shadow};
+  --shadow-md: #{$shadow-md};
+  --radius: #{$radius};
+  --radius-sm: #{$radius-sm};
 }
 
 *,
@@ -58,7 +58,9 @@ body {
   font-weight: 500;
   cursor: pointer;
   text-decoration: none;
-  transition: background 0.15s, opacity 0.15s;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
   white-space: nowrap;
 
   &:disabled {
@@ -71,21 +73,27 @@ body {
   background: var(--primary);
   color: #fff;
 
-  &:hover:not(:disabled) { background: var(--primary-dark); }
+  &:hover:not(:disabled) {
+    background: var(--primary-dark);
+  }
 }
 
 .btn-danger {
   background: var(--danger);
   color: #fff;
 
-  &:hover:not(:disabled) { background: var(--danger-hover); }
+  &:hover:not(:disabled) {
+    background: var(--danger-hover);
+  }
 }
 
 .btn-secondary {
   background: var(--gray-200);
   color: var(--gray-800);
 
-  &:hover:not(:disabled) { background: var(--gray-300); }
+  &:hover:not(:disabled) {
+    background: var(--gray-300);
+  }
 }
 
 .btn-ghost {
@@ -93,7 +101,9 @@ body {
   color: var(--primary);
   padding: 4px 8px;
 
-  &:hover:not(:disabled) { background: var(--primary-light); }
+  &:hover:not(:disabled) {
+    background: var(--primary-light);
+  }
 }
 
 .btn-sm {
@@ -146,7 +156,9 @@ body {
   border: 1px solid #c8e6c9;
 }
 
-.form-group { margin-bottom: 16px; }
+.form-group {
+  margin-bottom: 16px;
+}
 
 .form-label {
   display: block;
@@ -164,7 +176,9 @@ body {
   font-size: 14px;
   color: var(--gray-900);
   background: #fff;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 
   &:focus {
     outline: none;

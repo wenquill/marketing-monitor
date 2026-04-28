@@ -1,6 +1,12 @@
 import { Router, Request, Response } from 'express';
 import { CreateAppDto, UpdateAppDto } from '../types.js';
-import { getAllApps, getAppById, createApp, updateApp, deleteApp } from '../services/appsService.js';
+import {
+  getAllApps,
+  getAppById,
+  createApp,
+  updateApp,
+  deleteApp,
+} from '../services/appsService.js';
 
 const router = Router();
 
@@ -28,7 +34,11 @@ router.post('/', async (req: Request, res: Response) => {
     return;
   }
 
-  const result = await createApp({ url: body.url, name: body.name, intervalHours: body.intervalHours });
+  const result = await createApp({
+    url: body.url,
+    name: body.name,
+    intervalHours: body.intervalHours,
+  });
   if ('error' in result) {
     res.status(result.status).json({ message: result.error });
     return;
@@ -59,6 +69,5 @@ router.delete('/:id', (req: Request, res: Response) => {
   }
   res.status(204).end();
 });
-
 
 export default router;
