@@ -56,7 +56,7 @@ export default function TimelinePage() {
         </div>
         <div className={styles.actions}>
           <button className="btn btn-primary" onClick={triggerScreenshot} disabled={triggering}>
-            {triggering ? 'Capturing…' : '📷 Take Screenshot Now'}
+            {triggering ? 'Capturing…' : 'Take Screenshot Now'}
           </button>
         </div>
       </div>
