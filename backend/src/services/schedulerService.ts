@@ -56,12 +56,12 @@ async function checkAndTakeScreenshots(): Promise<void> {
 
   for (const app of apps) {
     try {
-      console.log(`[Scheduler] → ${app.name} (${app.package_id})`);
+      console.log(`[Scheduler] Processing: ${app.name} (${app.package_id})`);
       const result = await takeScreenshot(app);
       if (result.status === 'success') {
-        console.log(`[Scheduler] ✓ ${app.name}`);
+        console.log(`[Scheduler] Success: ${app.name}`);
       } else {
-        console.warn(`[Scheduler] ✗ ${app.name}: ${result.errorMessage}`);
+        console.warn(`[Scheduler] Error: ${app.name}: ${result.errorMessage}`);
       }
     } catch (err) {
       console.error(`[Scheduler] Unexpected error for ${app.name}:`, err);
