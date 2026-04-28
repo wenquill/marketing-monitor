@@ -147,3 +147,7 @@ cd backend && npm run build   # outputs to backend/dist/
 # Build frontend
 cd frontend && npm run build  # outputs to frontend/dist/
 ```
+
+## AWS Deployment
+
+You can read explanation about deploying application on AWS in /docs
