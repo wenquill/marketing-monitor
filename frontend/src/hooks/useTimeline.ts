@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { App, Screenshot } from '../types.tsx';
-import { appsApi, screenshotsApi } from '../api/client.ts';
+import { screenshotsApi } from '../api/screenshots.ts';
+import { appsApi } from '../api/apps.ts';
 
 const PAGE_SIZE = 15;
 
