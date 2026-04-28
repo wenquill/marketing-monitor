@@ -4,12 +4,10 @@ import { getDb } from '../db/database.js';
 import { DbApp, DbScreenshot, AppResponse, CreateAppDto, UpdateAppDto } from '../types.js';
 import { fetchAppName } from '../services/screenshotService.js';
 
-/** node:sqlite returns Record<string,SQLOutputValue> — cast via unknown */
 function row<T>(v: unknown): T { return v as T; }
 
 const router = Router();
 
-/** Validate a Google Play URL and extract the package ID */
 function parsePlayUrl(url: string): string | null {
   try {
     const parsed = new URL(url);
@@ -161,6 +159,7 @@ router.put('/:id', async (req: Request, res: Response) => {
         .json({ message: 'url must be a valid Google Play app URL' });
       return;
     }
+    
     // Prevent duplicate package_id on update
     const conflict = db
       .prepare('SELECT id FROM apps WHERE package_id = ? AND id != ?')

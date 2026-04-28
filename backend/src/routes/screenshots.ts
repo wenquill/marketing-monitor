@@ -3,7 +3,6 @@ import { getDb } from '../db/database.js';
 import { DbApp, DbScreenshot, ScreenshotResponse } from '../types.js';
 import { takeScreenshot } from '../services/screenshotService.js';
 
-/** node:sqlite returns Record<string,SQLOutputValue> — cast via unknown */
 function row<T>(v: unknown): T { return v as T; }
 
 const router = Router({ mergeParams: true });

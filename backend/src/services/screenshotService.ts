@@ -40,7 +40,6 @@ export async function takeScreenshot(app: DbApp): Promise<ScreenshotResponse> {
     fs.mkdirSync(appDir, { recursive: true });
   }
 
-  // Build a filesystem-safe timestamp string
   const now = new Date();
   const takenAt = now.toISOString();
   const safeTimestamp = takenAt.replace(/[:.]/g, '-');
@@ -114,7 +113,6 @@ export async function closeBrowser(): Promise<void> {
   }
 }
 
-/** Attempt to resolve the app name from the Google Play page title. */
 export async function fetchAppName(url: string): Promise<string | null> {
   try {
     const response = await fetch(url, {

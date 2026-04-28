@@ -3,7 +3,6 @@ import { getDb } from '../db/database.js';
 import { takeScreenshot } from './screenshotService.js';
 import { DbApp } from '../types.js';
 
-/** node:sqlite returns Record<string,SQLOutputValue> — cast via unknown */
 function row<T>(v: unknown): T { return v as T; }
 
 const CHECK_INTERVAL_MINUTES = Math.max(

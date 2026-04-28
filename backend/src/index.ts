@@ -16,14 +16,12 @@ const SCREENSHOTS_DIR = process.env.SCREENSHOTS_DIR
   ? path.resolve(process.env.SCREENSHOTS_DIR)
   : path.join(process.cwd(), 'screenshots');
 
-// Ensure the screenshots directory exists
 if (!fs.existsSync(SCREENSHOTS_DIR)) {
   fs.mkdirSync(SCREENSHOTS_DIR, { recursive: true });
 }
 
 const app = express();
 
-// ── Middleware ────────────────────────────────────────────────────────────────
 app.use(
   cors({
     origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
@@ -32,21 +30,15 @@ app.use(
 );
 app.use(express.json({ limit: '1mb' }));
 
-// Serve screenshot images as static files
 app.use('/screenshots', express.static(SCREENSHOTS_DIR));
 
-// ── Routes ───────────────────────────────────────────────────────────────────
 app.use('/api/apps', appsRouter);
 app.use('/api/apps/:appId/screenshots', screenshotsRouter);
 
-// Health-check endpoint
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// ── Bootstrap ────────────────────────────────────────────────────────────────
-
-// Ensure DB is initialised before starting the server
 getDb();
 
 const server = app.listen(PORT, () => {
@@ -54,7 +46,6 @@ const server = app.listen(PORT, () => {
   startScheduler();
 });
 
-// ── Graceful shutdown ─────────────────────────────────────────────────────────
 async function shutdown(signal: string): Promise<void> {
   console.log(`\n[Server] Received ${signal} — shutting down…`);
   server.close(() => {
